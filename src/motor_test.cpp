@@ -12,7 +12,7 @@ int main()
   int const stby_pin = 17;
   int const diretion = 1;
 
-  Motor test_motor = Motor(in1_pin, in2_pin, pwm_pin, stby_pin, diretion);
+  motor::Motor test_motor{ in1_pin, in2_pin, pwm_pin, stby_pin, diretion };
 
   test_motor.print_pins();
 

@@ -3,6 +3,8 @@ import RPi.GPIO as GPIO
 
 # TODO: check pins are appropriate for each input
 # TOOD: add documentation
+# TODO: used pwm_duty_cycle attribute
+# TODO: add status
 
 class Motor:
     def __init__(self, in1_pin, in2_pin, pwm_pin, stby_pin, direction):

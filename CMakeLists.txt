@@ -3,6 +3,7 @@ project(DC_Motor_Control_Tutorial VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
@@ -10,6 +11,8 @@ include_directories(include)
 
 find_package(pigpio REQUIRED)
 include_directories(${pigpio_INCLUDE_DIR})
+
+find_package(Boost REQUIRED) 
 
 add_executable(motor_hardware_test src/motor_hardware_test.cpp)
 target_link_libraries(motor_hardware_test 
@@ -19,6 +22,7 @@ target_link_libraries(motor_hardware_test
 add_executable(encoder_hardware_test src/encoder_hardware_test.cpp)
 target_link_libraries(encoder_hardware_test 
 	${pigpio_LIBRARY}
+	${Boost_LIBRARIES}
 	)
 
 # Locate GTest

@@ -1,5 +1,7 @@
 #include <chrono>
+#include <iostream>
 #include <thread>
+#include <boost/asio.hpp>
 #include <stdio.h>    // printf()
 #include <motor.h>
 
@@ -13,6 +15,33 @@ int main()
 
   motor::Motor test_motor = setup_motor();
   test_motor.print_pins();
+
+  boost::asio::io_service io;
+  boost::asio::serial_port port(io);
+  port.open("/dev/ttyACM0");
+  port.set_option(boost::asio::serial_port_base::baud_rate(115200));
+
+  // This works by blocking which isn't great. It sends a char then waits to get a char
+  // cmd a = send enc value and time
+  char cmd[1] = {'a'};
+  boost::asio::write(port, boost::asio::buffer(cmd, 1));
+  
+  // buffers
+  boost::asio::streambuf response;
+  std::istream response_stream(&response);
+  std::string response_string;
+
+  // enc value
+  boost::asio::read_until(port, response, '\n');
+  response_stream >> response_string;
+  std::cout << response_string << std::endl;
+
+  // time
+  boost::asio::read_until(port, response, '\n');
+  response_stream >> response_string;
+  std::cout << response_string << std::endl;
+
+  port.close();
   
 }
 

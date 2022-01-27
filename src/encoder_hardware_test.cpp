@@ -5,6 +5,8 @@
 #include <stdio.h>    // printf()
 #include <motor.h>
 
+using namespace std::chrono_literals;
+
 void print_header();
 motor::Motor setup_motor();
 
@@ -20,26 +22,40 @@ int main()
   boost::asio::serial_port port(io);
   port.open("/dev/ttyACM0");
   port.set_option(boost::asio::serial_port_base::baud_rate(115200));
-
-  // This works by blocking which isn't great. It sends a char then waits to get a char
-  // cmd a = send enc value and time
-  char cmd[1] = {'a'};
-  boost::asio::write(port, boost::asio::buffer(cmd, 1));
   
   // buffers
   boost::asio::streambuf response;
   std::istream response_stream(&response);
-  std::string response_string;
+  std::string response_string1;
+  std::string response_string2;
+  char cmd[1] = {'a'};
+  auto time_loop = 2ms;
+  auto time_start = std::chrono::system_clock::now();
 
-  // enc value
-  boost::asio::read_until(port, response, '\n');
-  response_stream >> response_string;
-  std::cout << response_string << std::endl;
+  while (true)
+  {
+    // TODO: make this asynch
+    // TODO: make functions for this
 
-  // time
-  boost::asio::read_until(port, response, '\n');
-  response_stream >> response_string;
-  std::cout << response_string << std::endl;
+    if (time_loop < std::chrono::system_clock::now() - time_start)
+    { 
+      boost::asio::write(port, boost::asio::buffer(cmd));
+
+      // enc value
+      boost::asio::read_until(port, response, '\n');
+      std::getline(response_stream, response_string1);
+      response_string1.pop_back();
+
+      // time
+      boost::asio::read_until(port, response, '\n');
+      std::getline(response_stream, response_string2);
+      response_string2.pop_back();
+
+      std::cout << response_string1 << ", " << response_string2 << std::endl;
+
+      time_start += time_loop;
+    }
+  }
 
   port.close();
   

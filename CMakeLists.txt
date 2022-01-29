@@ -7,22 +7,26 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-include_directories(include)
-
-find_package(pigpio REQUIRED)
-include_directories(${pigpio_INCLUDE_DIR})
-
 find_package(Boost REQUIRED) 
+find_package(pigpio REQUIRED)
 
+include_directories(
+	${pigpio_INCLUDE_DIR}
+	include)
+
+add_library(motor_lib src/motor.cpp include/motor.h)
 add_executable(motor_hardware_test src/motor_hardware_test.cpp)
 target_link_libraries(motor_hardware_test 
 	${pigpio_LIBRARY}
+	pthread
+	motor_lib
 	)
 
+add_library(serial_lib src/serial.cpp include/serial.h)
 add_executable(encoder_hardware_test src/encoder_hardware_test.cpp)
 target_link_libraries(encoder_hardware_test 
-	${pigpio_LIBRARY}
-	${Boost_LIBRARIES}
+	${Boost_LIBRARIES}	
+	serial_lib
 	)
 
 # Locate GTest
@@ -33,6 +37,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 add_executable(runTests test/motor_tests.cpp)
 target_link_libraries(runTests 
 	${GTEST_LIBRARIES} 
-	pthread
 	${pigpio_LIBRARY}
+	pthread
+	motor_lib
 	)

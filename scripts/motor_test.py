@@ -1,6 +1,7 @@
 from time import sleep
 from motor import Motor
 
+
 def main():
 
     in1_pin = 27
@@ -12,14 +13,14 @@ def main():
     print_header()
 
     print("Starting tests.\n")
-    
+
     print("-- Test 1: activate motor --")
     test_motor = Motor(in1_pin, in2_pin, pwm_pin, stby_pin, direction)
     test_motor.init()
     test_motor.activate()
     print()
     sleep(1)
-    
+
     print("-- Test 2: driving motor counterclockwise --")
     test_motor.drive(20)
     print()

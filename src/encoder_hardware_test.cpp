@@ -16,7 +16,7 @@ int main()
 
   serial::Serial serial_port{"/dev/ttyACM0"};
   serial_port.open();
- 
+
   std::string cmd = "a";
   auto time_loop = 2ms;
   auto time_start = std::chrono::system_clock::now();
@@ -29,7 +29,7 @@ int main()
     // TODO: make this asynch
 
     if (time_loop < std::chrono::system_clock::now() - time_start)
-    { 
+    {
       serial_port.write(cmd);
       response_string1 = serial_port.read_line();   // enc value
       response_string2 = serial_port.read_line();   // time
@@ -41,7 +41,7 @@ int main()
   }
 
   serial_port.close();
-  
+
   return 0;
 }
 

@@ -46,7 +46,7 @@ void Motor::deactivate()
   gpioWrite(in1_pin_, 0);
   gpioWrite(in2_pin_, 0);
   gpioWrite(stby_pin_, 0);
-  
+
   status_ = initialized;
 }
 
@@ -184,7 +184,7 @@ int Motor::get_duty_cycle() const
 
 int Motor::get_current_direction() const
 {
-  return current_direction_; 
+  return current_direction_;
 }
 
 void Motor::print_pins()

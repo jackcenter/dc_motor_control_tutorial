@@ -16,13 +16,13 @@ TEST(TestMotor, drive_commands)
   motor::Motor test_motor = motor::Motor(in1_pin, in2_pin, pwm_pin, stby_pin, diretion);
 
   // should fail, and result in no change
-  test_motor.drive(50);		
+  test_motor.drive(50);
   ASSERT_EQ(test_motor.get_duty_cycle(), 0);
   ASSERT_EQ(test_motor.get_current_direction(), 0);
 
 	// should fail, and result in no change
   test_motor.init();
-	test_motor.drive(50);		
+	test_motor.drive(50);
 	ASSERT_EQ(test_motor.get_duty_cycle(), 0);
 	ASSERT_EQ(test_motor.get_current_direction(), 0);
 
@@ -33,12 +33,12 @@ TEST(TestMotor, drive_commands)
 	ASSERT_EQ(test_motor.get_current_direction(), 0);
 
 	// should result in a clockwise running motor.
-	test_motor.drive(-100);	
+	test_motor.drive(-100);
 	ASSERT_EQ(test_motor.get_duty_cycle(), 100);
 	ASSERT_EQ(test_motor.get_current_direction(), -1);
-	
+
 	// should result in a stopped motor.
-	test_motor.drive(0);						
+	test_motor.drive(0);
 	ASSERT_EQ(test_motor.get_duty_cycle(), 0);
 	ASSERT_EQ(test_motor.get_current_direction(), 0);
 
@@ -48,12 +48,12 @@ TEST(TestMotor, drive_commands)
 	ASSERT_EQ(test_motor.get_current_direction(), 1);
 
 	// should fail, and result in no change
-	test_motor.drive(101);					
+	test_motor.drive(101);
 	ASSERT_EQ(test_motor.get_duty_cycle(), 100);
 	ASSERT_EQ(test_motor.get_current_direction(), 1);
 
 // TODO: can remove this once simulated hardware is used
-  gpioTerminate();    
+  gpioTerminate();
 }
 
 int main(int argc, char **argv)

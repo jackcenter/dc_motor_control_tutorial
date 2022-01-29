@@ -13,7 +13,7 @@ class Motor
       , pwm_pin_(pwm_pin)
       , stby_pin_(stby_pin)
       , direction_(direction)
-    {} 
+    {}
 
     void init();
     void activate();

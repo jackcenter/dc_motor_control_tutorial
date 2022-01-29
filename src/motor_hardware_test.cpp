@@ -19,7 +19,7 @@ int main()
 
   printf("Starting tests.\n");
   printf("\n");
-    
+
   printf("-- Test 1: activate motor --\n");
   test_motor.init();
   test_motor.activate();

@@ -35,4 +35,3 @@ class Serial
 };
 
 } // namespace serial
-

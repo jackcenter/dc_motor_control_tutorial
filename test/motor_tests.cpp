@@ -1,5 +1,6 @@
 #include "motor.h"
 #include <gtest/gtest.h>
+#include <pigpio.h>
 
 // TODO: add checks for status_
 // TODO: figure out how to stop this from connecting to hardware

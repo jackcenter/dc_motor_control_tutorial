@@ -1,6 +1,7 @@
 #include <chrono>
 #include <thread>
 #include <stdio.h>    // printf()
+#include <pigpio.h>
 #include <motor.h>
 
 // TODO: finish writing tests

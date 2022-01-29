@@ -1,4 +1,8 @@
+#include <stdio.h>      // printf()
+#include <stdlib.h>     // abs()
+#include <pigpio.h>
 #include "motor.h"
+
 
 namespace  motor
 {

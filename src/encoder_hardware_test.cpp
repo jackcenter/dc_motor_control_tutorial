@@ -3,7 +3,7 @@
 #include <thread>
 #include <stdio.h>    // printf()
 #include <boost/asio.hpp>
-#include "serial.h"
+#include "serial_interface.h"
 
 using namespace std::chrono_literals;
 

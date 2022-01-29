@@ -1,7 +1,7 @@
 #include <stdio.h>      // printf()
 #include <stdlib.h>     // abs()
 #include <pigpio.h>
-#include "motor.h"
+#include "motor_interface.h"
 
 
 namespace  motor

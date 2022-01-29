@@ -1,4 +1,4 @@
-#include "motor.h"
+#include "motor_interface.h"
 #include <gtest/gtest.h>
 #include <pigpio.h>
 

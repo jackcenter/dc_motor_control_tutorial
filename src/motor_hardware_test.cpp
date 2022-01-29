@@ -2,7 +2,7 @@
 #include <thread>
 #include <stdio.h>    // printf()
 #include <pigpio.h>
-#include <motor.h>
+#include "motor_interface.h"
 
 // TODO: finish writing tests
 

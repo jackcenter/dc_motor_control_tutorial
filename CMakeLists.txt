@@ -14,7 +14,7 @@ include_directories(
 	${pigpio_INCLUDE_DIR}
 	include)
 
-add_library(motor_lib src/motor.cpp include/motor.h)
+add_library(motor_lib src/motor_interface.cpp include/motor_interface.h)
 add_executable(motor_hardware_test src/motor_hardware_test.cpp)
 target_link_libraries(motor_hardware_test 
 	${pigpio_LIBRARY}
@@ -22,7 +22,7 @@ target_link_libraries(motor_hardware_test
 	motor_lib
 	)
 
-add_library(serial_lib src/serial.cpp include/serial.h)
+add_library(serial_lib src/serial_interface.cpp include/serial_interface.h)
 add_executable(encoder_hardware_test src/encoder_hardware_test.cpp)
 target_link_libraries(encoder_hardware_test 
 	${Boost_LIBRARIES}	

@@ -1,24 +1,19 @@
-#include <stdio.h>    // printf()
-#include <stdlib.h>   // abs()
-#include <pigpio.h>
+#pragma once
 
-// TODO: finish writing api
-// TODO: add in gpio functionality
+
 namespace motor
 {
 
 class Motor
 {
-  
   public:
-    Motor ();
-    Motor (int in1_pin, int in2_pin, int pwm_pin, int stby_pin, int direction):
-          in1_pin_(in1_pin), 
-          in2_pin_(in2_pin), 
-          pwm_pin_(pwm_pin), 
-          stby_pin_(stby_pin),
-          direction_(direction)
-          {} 
+    Motor (int in1_pin, int in2_pin, int pwm_pin, int stby_pin, int direction)
+      : in1_pin_(in1_pin)
+      , in2_pin_(in2_pin)
+      , pwm_pin_(pwm_pin)
+      , stby_pin_(stby_pin)
+      , direction_(direction)
+    {} 
 
     void init();
     void activate();
@@ -56,7 +51,6 @@ class Motor
     };
 
     Status status_ = { uninitialized };
-
 };
 
 } // namespace motor

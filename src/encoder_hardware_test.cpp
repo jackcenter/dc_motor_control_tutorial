@@ -2,7 +2,9 @@
 #include <iostream>
 #include <thread>
 #include <stdio.h>    // printf()
+#include <string>
 #include <boost/asio.hpp>
+#include "encoder_interface.h"
 #include "serial_interface.h"
 
 using namespace std::chrono_literals;
@@ -14,6 +16,11 @@ int main()
 {
   print_header();
 
+  int cpr = 8400;
+  int rate = 500;
+
+  encoder::Encoder encoder{cpr, rate};
+
   serial::Serial serial_port{"/dev/ttyACM0"};
   serial_port.open();
 
@@ -24,9 +31,12 @@ int main()
   std::string response_string1;
   std::string response_string2;
 
+  int count = 0;
+
   while (true)
   {
     // TODO: make this asynch
+
 
     if (time_loop < std::chrono::system_clock::now() - time_start)
     {
@@ -34,7 +44,18 @@ int main()
       response_string1 = serial_port.read_line();   // enc value
       response_string2 = serial_port.read_line();   // time
 
-      std::cout << response_string1 << ", " << response_string2 << std::endl;
+      long enc_val = std::stol(response_string1);
+
+      encoder.update(enc_val);
+
+      ++count;
+      if (count % 50 == 0)
+      {
+        encoder.print_values();
+      }
+
+
+      // std::cout << response_string1 << ", " << response_string2 << std::endl;
 
       time_start += time_loop;
     }

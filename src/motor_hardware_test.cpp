@@ -16,12 +16,15 @@ int main()
 
   motor::Motor test_motor = setup_motor();
   test_motor.print_pins();
+  test_motor.set_verbose_output(true);
 
   printf("Starting tests.\n");
   printf("\n");
 
   printf("-- Test 1: activate motor --\n");
+  test_motor.drive(20);
   test_motor.init();
+  test_motor.drive(20);
   test_motor.activate();
   printf("\n");
   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -65,10 +68,14 @@ int main()
 
   printf("-- Test 7: deactivate motor --\n");
   test_motor.deactivate();
+  test_motor.drive(20);
   printf("\n");
   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
   gpioTerminate();
+
+  printf("Tests complete.\n");
+  printf("\n");
 
   return 0;
 }

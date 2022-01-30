@@ -9,7 +9,10 @@ namespace  motor
 
 void Motor::init()
 {
-  printf("Initializing motor.\n");
+  if (verbose_)
+  {
+    printf("Initializing motor.\n");
+  }
 
   // General setup
   gpioInitialise();
@@ -28,7 +31,10 @@ void Motor::init()
 
 void Motor::activate()
 {
-  printf("Activating motor.\n");
+  if (verbose_)
+  {
+    printf("Activating motor.\n");
+  }
 
   gpioPWM(pwm_pin_, 0);
   gpioWrite(in1_pin_, 0);
@@ -40,7 +46,10 @@ void Motor::activate()
 
 void Motor::deactivate()
 {
-  printf("Deactivating motor.\n");
+  if (verbose_)
+  {
+   printf("Deactivating motor.\n");
+  }
 
   gpioPWM(pwm_pin_, 0);
   gpioWrite(in1_pin_, 0);
@@ -52,11 +61,14 @@ void Motor::deactivate()
 
 void Motor::drive(int const cmd)
 {
-  printf("Drive command received: %i.\n", cmd);
+  if (verbose_)
+  {
+    printf("Drive command received: %i.\n", cmd);
+  }
 
   if (status_ != active)
   {
-    printf("[Error]: drive command received while motor was not in an active state\n");
+    printf("[Error]: drive command received while motor was NOT active.\n");
     return;
   }
 
@@ -95,7 +107,10 @@ void Motor::drive(int const cmd)
 
 void Motor::stop()
 {
-  printf("Stopping.\n");
+  if (verbose_)
+  {
+    printf("Stopping.\n");
+  }
 
   pwm_duty_cycle_ = 100;
 
@@ -106,7 +121,10 @@ void Motor::stop()
 
 void Motor::brake()
 {
-  printf("Braking.\n");
+  if (verbose_)
+  {
+    printf("Braking.\n");
+  }
 
   pwm_duty_cycle_ = 0;
 
@@ -117,7 +135,10 @@ void Motor::brake()
 
 bool Motor::drive_counterclockwise(int duty_cycle)
 {
-  printf("Driving counterclockwise at %i percent.\n", duty_cycle);
+  if (verbose_)
+  {
+    printf("Driving counterclockwise at %i percent.\n", duty_cycle);
+  }
 
   if (!check_valid_duty_cycle(duty_cycle))
   {
@@ -135,7 +156,10 @@ bool Motor::drive_counterclockwise(int duty_cycle)
 
 bool Motor::drive_clockwise(int duty_cycle)
 {
-  printf("Driving clockwise at %i percent.\n", duty_cycle);
+  if (verbose_)
+  {
+    printf("Driving clockwise at %i percent.\n", duty_cycle);
+  }
 
   if (!check_valid_duty_cycle(duty_cycle))
   {

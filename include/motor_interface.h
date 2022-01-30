@@ -15,6 +15,8 @@ class Motor
       , direction_(direction)
     {}
 
+    void set_verbose_output(bool val) { verbose_ = val; };
+
     void init();
     void activate();
     void deactivate();
@@ -34,6 +36,7 @@ class Motor
     int const stby_pin_;
     int const direction_;
 
+    bool verbose_ = false;
     int pwm_duty_cycle_ = 0;
     int pwm_period_ = 1000;
     int current_direction_ = 0;

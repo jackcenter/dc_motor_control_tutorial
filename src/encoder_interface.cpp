@@ -13,7 +13,7 @@ namespace encoder
     value_k0_ = value_k1_;
     value_k1_ = val;
     position_ = 2 * M_PI * value_k1_ / cpr_ ;
-    velocity_ = 2 * M_PI *(value_k1_ - value_k0_) / cpr_ * rate_;
+    velocity_ = filter_velocity();
   }
 
   void Encoder::print_values() const
@@ -30,5 +30,37 @@ namespace encoder
     if (val < 0)
         val += 2 * M_PI;
     return val - M_PI;
+  }
+
+  double Encoder::filter_velocity() const
+  {
+    static const double alpha = 0.8;
+    double vel_k1 = 2 * M_PI *(value_k1_ - value_k0_) / cpr_ * rate_;
+    double val_filtered = alpha * vel_k1 + (1 - alpha) * velocity_;
+    return val_filtered;
+  }
+
+  int Encoder::get_direction() const
+  {
+    int result;
+
+    if (value_k1_ - value_k0_ > 0)
+    {
+      result = 1;
+    } else if (value_k1_ == value_k0_)
+    {
+      result = 0;
+    } else
+    {
+      result = -1;
+    }
+
+  return result;
+  }
+
+  void Encoder::set_initial_value(long const val)
+  {
+    value_k0_ = val;
+    value_k1_ = val;
   }
 } // namespace encoder

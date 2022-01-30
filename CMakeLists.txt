@@ -28,6 +28,9 @@ target_link_libraries(motor_hardware_test
 add_executable(encoder_hardware_test src/encoder_hardware_test.cpp)
 target_link_libraries(encoder_hardware_test
 	${Boost_LIBRARIES}
+	${pigpio_LIBRARY}
+	pthread
+	motor_lib
 	serial_lib
 	encoder_lib
 	)
